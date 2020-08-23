@@ -6,6 +6,7 @@ use App\Repository\MatchRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=MatchRepository::class)
@@ -17,11 +18,13 @@ class Match
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("match:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Groups("match:read")
      */
     private $date;
 
@@ -32,11 +35,13 @@ class Match
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("match:read")
      */
     private $scoreA;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("match:read")
      */
     private $scoreB;
 
