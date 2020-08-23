@@ -60,9 +60,15 @@ class Joueur
      */
     private $equipe;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="joueur")
+     */
+    private $commentaires;
+
     public function __construct()
     {
         $this->points = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -169,6 +175,37 @@ class Joueur
     public function setEquipe(?Equipe $equipe): self
     {
         $this->equipe = $equipe;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commentaire[]
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setJoueur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->contains($commentaire)) {
+            $this->commentaires->removeElement($commentaire);
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getJoueur() === $this) {
+                $commentaire->setJoueur(null);
+            }
+        }
 
         return $this;
     }
