@@ -11,6 +11,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
+     * @Route("/", name="homepage")
+     */
+    public function index()
+    {
+        return $this->render('index.html.twig', []);
+    }
+
+    /**
      * @Route("/test")
      */
     public function test()
